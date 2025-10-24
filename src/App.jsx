@@ -1,7 +1,29 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
+import supabase from './utils/supabase';
 
 function App() {
-  return <div>App</div>;
-}
+  const [posts, setPosts] = useState([]);
 
+  useEffect(() => {
+    async function getPosts() {
+      const { data: posts } = await supabase.from('posts').select();
+
+      console.log(posts);
+      setPosts(posts);
+    }
+
+    getPosts();
+  }, []);
+
+  return (
+    <div>
+      <h3>post</h3>
+      {posts.map((post, i) => (
+        <li key={i}>
+          {post.title}/{post.name}/{post.content}
+        </li>
+      ))}
+    </div>
+  );
+}
 export default App;
