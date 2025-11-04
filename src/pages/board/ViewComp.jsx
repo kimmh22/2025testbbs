@@ -4,7 +4,9 @@ import supabase from '../../utils/supabase';
 import dayjs from 'dayjs';
 
 function ViewComp() {
-  const { id } = useParams();
+  const params = useParams();
+  const { id } = useParams(); // {id:"10"}
+  console.log(params);
   const [view, setView] = useState({});
 
   useEffect(() => {
@@ -33,7 +35,7 @@ function ViewComp() {
           </div>
         </div>
         <hr />
-        <p style={{ 'min-height': '200px' }}>{view.content}</p>
+        <p style={{ minHeight: '200px' }}>{view.content}</p>
       </div>
       <div className="d-flex justify-content-end">
         <div className="d-flex gap-2">
