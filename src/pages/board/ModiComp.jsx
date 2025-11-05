@@ -4,8 +4,8 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useBoard } from '../../context/BoardContext';
 
 function ModiComp() {
-  const [id] = useParams();
-  const { getPosts } = useBoard();
+  const { id } = useParams();
+  const { getPosts } = useBoard(); // context api
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: '',
@@ -20,14 +20,17 @@ function ModiComp() {
         .select('*')
         .eq('id', Number(id))
         .single();
+      console.log(data);
       if (data) {
+        setFormData({
+          title: data.title || '',
+          name: data.name || '',
+          content: data.content || '',
+        });
       }
     };
-
     viewData();
-  });
-  // const [name, setName] = useState('');
-  // const [content, setContent] = useState('');
+  }, []);
 
   const eventHandler = (e) => {
     // console.log(e.target);
@@ -49,19 +52,18 @@ function ModiComp() {
     const createWrite = async () => {
       const { data, error } = await supabase
         .from('posts')
-        .insert([
-          {
-            title: formData.title,
-            name: formData.name,
-            content: formData.content,
-          },
-        ])
+        .update({
+          title: formData.title,
+          name: formData.name,
+          content: formData.content,
+        })
+        .eq('id', Number(id))
         .select();
 
       if (!error) {
-        alert('글작성성공');
-        navigate('/board/list');
-        getPosts();
+        alert('글수정성공');
+        navigate(`/board/view/${id}`);
+        getPosts(); // context api
       }
     };
 
@@ -70,7 +72,7 @@ function ModiComp() {
 
   return (
     <div>
-      <h3>글작성</h3>
+      <h3>글수정</h3>
       <div>
         <form onSubmit={clickHandler}>
           <div className="mb-3">
@@ -85,6 +87,7 @@ function ModiComp() {
               placeholder="글제목을 입력하세요"
               required
               onChange={eventHandler}
+              value={formData.title}
             />
           </div>
           <div>{formData.title}</div>
@@ -103,6 +106,7 @@ function ModiComp() {
               //   setName(e.target.value);
               // }}
               onChange={eventHandler}
+              value={formData.name}
             />
           </div>
           <div>{formData.name}</div>
@@ -123,6 +127,7 @@ function ModiComp() {
               //   setContent(e.target.value);
               // }}
               onChange={eventHandler}
+              value={formData.content}
             />
           </div>
           <div>{formData.content}</div>
@@ -131,7 +136,7 @@ function ModiComp() {
               <Link to={`/board/view/${id}`} className="btn btn-danger">
                 취소
               </Link>
-              <button className="btn btn-primary">글작성</button>
+              <button className="btn btn-primary">글수정</button>
             </div>
           </div>
         </form>

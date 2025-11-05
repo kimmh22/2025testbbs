@@ -4,6 +4,9 @@ import './App.css';
 import HomeComp from './pages/home/HomeComp';
 import AboutComp from './pages/about/AboutComp';
 import BoardComp from './pages/board/BoardComp';
+import MemberComp from './pages/member/MemberComp';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -33,12 +36,18 @@ function App() {
               board
             </NavLink>
           </li>
+          <li className="d-flex align-items-center">
+            <NavLink to="/member" className="nav-link">
+              member
+            </NavLink>
+          </li>
         </ul>
       </div>
       <Routes>
         <Route path="/" element={<HomeComp />}></Route>
         <Route path="/about/*" element={<AboutComp />}></Route>
         <Route path="/board/*" element={<BoardComp />}></Route>
+        <Route path="/member/*" element={<MemberComp />}></Route>
       </Routes>
       <div className="container-fluid py-5 mt-5" style={{ background: '#ddd' }}>
         <div className="container">
@@ -46,6 +55,18 @@ function App() {
           ratione?
         </div>
       </div>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        theme="dark"
+      />
     </BrowserRouter>
   );
 }

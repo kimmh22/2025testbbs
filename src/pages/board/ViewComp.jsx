@@ -42,7 +42,7 @@ function ViewComp() {
           <Link to="/board/list" className="btn btn-primary">
             리스트
           </Link>
-          <Link to="/board/modi" className="btn btn-info">
+          <Link to={`/board/modify/${id}`} className="btn btn-info">
             수정
           </Link>
           <Link to="" className="btn btn-danger">
