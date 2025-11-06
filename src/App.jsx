@@ -6,15 +6,16 @@ import AboutComp from './pages/about/AboutComp';
 import BoardComp from './pages/board/BoardComp';
 import MemberComp from './pages/member/MemberComp';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useUser } from './context/UserContext';
 
 function App() {
+  const text = useUser();
   return (
     <BrowserRouter>
       <div className="container d-flex justify-content-between">
         <h1>
           <Link to="/" className="nav-link">
-            LOGO
+            LOGO {text}
           </Link>
         </h1>
         <ul className="d-flex gap-3 menu">
@@ -40,6 +41,9 @@ function App() {
             <NavLink to="/member" className="nav-link">
               member
             </NavLink>
+          </li>
+          <li className="d-flex align-items-center">
+            <Link className="nav-link">로그아웃</Link>
           </li>
         </ul>
       </div>
