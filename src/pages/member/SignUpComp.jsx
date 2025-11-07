@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import supabase from '../../utils/supabase';
 import { toast } from 'react-toastify';
+import { useUser } from '../../context/UserContext';
 
 function SignUpComp() {
+  const { loading, setLoading, signUp } = useUser();
   const [formData, setFormData] = useState({
     useremail: '',
     userpwd: '',
@@ -14,7 +15,7 @@ function SignUpComp() {
   });
 
   const [errorM, setErrorM] = useState('');
-  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
   const eventHandler = (e) => {
@@ -55,45 +56,60 @@ function SignUpComp() {
     } else {
       setErrorM('');
     }
-
-    // alert('회원가입');
-
+    //alret ('회원가입');
     setLoading(true);
 
-    const { data, error } = await supabase.auth.signUp({
-      email: formData.useremail,
-      password: formData.userpwd,
-    });
-
-    console.log(data);
-
+    // ('회원가입');
+    const { error } = await signUp(
+      formData.useremail,
+      formData.userpwd,
+      formData.name,
+      formData.phone,
+      formData.text
+    );
     if (!error) {
-      console.log(data.user.id);
-
-      const { error } = await supabase
-        .from('user_table')
-        .insert([
-          {
-            id: data.user.id,
-            name: formData.name,
-            phone: formData.phone,
-            text: formData.text,
-          },
-        ])
-        .select();
-
-      if (!error) {
-        toast('회원가입완료');
-        setLoading(false);
-        navigate('/');
-      } else {
-        toast('가입안됨');
-        setLoading(false);
-      }
+      toast('회원가입완료');
+      navigate('/member/signin');
+      setLoading(false);
     } else {
-      toast('가입안됨');
+      toast(error);
       setLoading(false);
     }
+
+    //   const { data, error } = await supabase.auth.signUp({
+    //     email: formData.useremail,
+    //     password: formData.userpwd,
+    //   });
+
+    //   console.log(data);
+
+    //   if (!error) {
+    //     console.log(data.user.id);
+
+    //     const { error } = await supabase
+    //       .from('user_table')
+    //       .insert([
+    //         {
+    //           id: data.user.id,
+    //           name: formData.name,
+    //           phone: formData.phone,
+    //           text: formData.text,
+    //         },
+    //       ])
+    //       .select();
+
+    //     if (!error) {
+    //       toast('회원가입완료');
+    //       setLoading(false);
+    //       navigate('/');
+    //     } else {
+    //       toast('가입안됨');
+    //       setLoading(false);
+    //     }
+    //   } else {
+    //     toast('가입안됨');
+    //     setLoading(false);
+    //   }
   };
 
   return (
@@ -117,7 +133,6 @@ function SignUpComp() {
               placeholder="이메일을 입력하세요"
               name="useremail"
               onChange={eventHandler}
-              required
               disabled={loading}
             />
           </div>
@@ -132,7 +147,6 @@ function SignUpComp() {
               placeholder="비밀번호 입력(6자 이상)"
               name="userpwd"
               onChange={eventHandler}
-              required
               disabled={loading}
             />
           </div>
@@ -147,7 +161,6 @@ function SignUpComp() {
               placeholder="비밀번호 확인(6자 이상)"
               name="userpwd1"
               onChange={eventHandler}
-              required
               disabled={loading}
             />
           </div>
@@ -164,7 +177,6 @@ function SignUpComp() {
               placeholder="이름을 입력하세요"
               className="form-control"
               onChange={eventHandler}
-              required
               disabled={loading}
             />
           </div>
@@ -179,7 +191,6 @@ function SignUpComp() {
               placeholder="핸드폰번호를 입력하세요"
               className="form-control"
               onChange={eventHandler}
-              required
               disabled={loading}
             />
           </div>
@@ -194,7 +205,6 @@ function SignUpComp() {
               placeholder="간단한소개 입력하세요"
               className="form-control"
               onChange={eventHandler}
-              required
               disabled={loading}
             />
           </div>

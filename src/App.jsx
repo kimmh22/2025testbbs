@@ -9,14 +9,16 @@ import { ToastContainer } from 'react-toastify';
 import { useUser } from './context/UserContext';
 
 function App() {
-  const text = useUser();
+  const { signUp } = useUser();
+
   return (
     <BrowserRouter>
       <div className="container d-flex justify-content-between">
         <h1>
           <Link to="/" className="nav-link">
-            LOGO {text}
+            LOGO
           </Link>
+          {/* <button onClick={signUp}>클릭</button> */}
         </h1>
         <ul className="d-flex gap-3 menu">
           <li className="d-flex align-items-center">
@@ -42,9 +44,9 @@ function App() {
               member
             </NavLink>
           </li>
-          <li className="d-flex align-items-center">
+          {/* <li className="d-flex align-items-center">
             <Link className="nav-link">로그아웃</Link>
-          </li>
+          </li> */}
         </ul>
       </div>
       <Routes>

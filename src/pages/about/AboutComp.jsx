@@ -5,14 +5,13 @@ import HistoryComp from './HistoryComp';
 import { useUser } from '../../context/UserContext';
 
 function AboutComp() {
-  const text = useUser();
   return (
     <div className="container">
       <div
         style={{ width: '100%', height: '200px' }}
         className="d-flex justify-content-center align-items-center bg-info rounded mb-3"
       >
-        About{text}
+        About
       </div>
       <div className="d-flex justify-content-center gap-3 submenu">
         <NavLink to="/about/company" className="nav-link">
