@@ -3,6 +3,7 @@ import { Link, NavLink, Route, Routes } from 'react-router-dom';
 import ComComp from './ComComp';
 import HistoryComp from './HistoryComp';
 import { useUser } from '../../context/UserContext';
+import ImageComp from './ImageComp';
 
 function AboutComp() {
   return (
@@ -20,11 +21,15 @@ function AboutComp() {
         <NavLink to="/about/history" className="nav-link">
           연혁
         </NavLink>
+        <NavLink to="/about/image" className="nav-link">
+          이미지
+        </NavLink>
       </div>
       <Routes>
         <Route index element={<ComComp />}></Route>
         <Route path="company" element={<ComComp />}></Route>
         <Route path="history" element={<HistoryComp />}></Route>
+        <Route path="image" element={<ImageComp />}></Route>
       </Routes>
     </div>
   );

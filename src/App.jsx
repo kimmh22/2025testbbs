@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter, Link, NavLink, Route, Routes } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import HomeComp from './pages/home/HomeComp';
 import AboutComp from './pages/about/AboutComp';
@@ -7,48 +7,14 @@ import BoardComp from './pages/board/BoardComp';
 import MemberComp from './pages/member/MemberComp';
 import { ToastContainer } from 'react-toastify';
 import { useUser } from './context/UserContext';
+import MenuComp from './components/MenuComp';
 
 function App() {
-  const { signUp } = useUser();
+  const { user } = useUser();
 
   return (
     <BrowserRouter>
-      <div className="container d-flex justify-content-between">
-        <h1>
-          <Link to="/" className="nav-link">
-            LOGO
-          </Link>
-          {/* <button onClick={signUp}>클릭</button> */}
-        </h1>
-        <ul className="d-flex gap-3 menu">
-          <li className="d-flex align-items-center">
-            {/* <Link to="/" className="nav-link">
-              home
-            </Link> */}
-            <NavLink to="/" className="nav-link">
-              home
-            </NavLink>
-          </li>
-          <li className="d-flex align-items-center">
-            <NavLink to="/about" className="nav-link">
-              about
-            </NavLink>
-          </li>
-          <li className="d-flex align-items-center">
-            <NavLink to="/board" className="nav-link">
-              board
-            </NavLink>
-          </li>
-          <li className="d-flex align-items-center">
-            <NavLink to="/member" className="nav-link">
-              member
-            </NavLink>
-          </li>
-          {/* <li className="d-flex align-items-center">
-            <Link className="nav-link">로그아웃</Link>
-          </li> */}
-        </ul>
-      </div>
+      <MenuComp />
       <Routes>
         <Route path="/" element={<HomeComp />}></Route>
         <Route path="/about/*" element={<AboutComp />}></Route>
@@ -61,6 +27,7 @@ function App() {
           ratione?
         </div>
       </div>
+      {JSON.stringify(user)}
       <ToastContainer
         position="bottom-center"
         autoClose={2000}

@@ -69,7 +69,7 @@ function SignUpComp() {
     );
     if (!error) {
       toast('회원가입완료');
-      navigate('/member/signin');
+      navigate('/');
       setLoading(false);
     } else {
       toast(error);

@@ -2,14 +2,21 @@ import React, { useState } from 'react';
 import supabase from '../../utils/supabase';
 import { Link, useNavigate } from 'react-router-dom';
 import { useBoard } from '../../context/BoardContext';
+import { useUser } from '../../context/UserContext';
 
 function WriteComp() {
+  const { user } = useUser();
+
+  if (!user) {
+    return <p>로그인후 이용가능합니다</p>;
+  }
   const { getPosts } = useBoard();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: '',
     name: '',
     content: '',
+    user_id: user.id,
   });
 
   // const [name, setName] = useState('');
@@ -40,6 +47,7 @@ function WriteComp() {
             title: formData.title,
             name: formData.name,
             content: formData.content,
+            user_id: formData.user_id,
           },
         ])
         .select();
@@ -89,6 +97,8 @@ function WriteComp() {
               //   setName(e.target.value);
               // }}
               onChange={eventHandler}
+              value={user?.name ?? ''}
+              disabled={user?.name}
             />
           </div>
           <div>{formData.name}</div>
