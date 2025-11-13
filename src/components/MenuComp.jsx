@@ -32,6 +32,11 @@ function MenuComp() {
                 board
               </NavLink>
             </li>
+            <li className="d-flex align-items-center">
+              <NavLink to="/imageboard" className="nav-link">
+                imageboard
+              </NavLink>
+            </li>
             {/* <li className="d-flex align-items-center">
             <NavLink to="/member" className="nav-link">
               member

@@ -5,6 +5,7 @@ import HomeComp from './pages/home/HomeComp';
 import AboutComp from './pages/about/AboutComp';
 import BoardComp from './pages/board/BoardComp';
 import MemberComp from './pages/member/MemberComp';
+import ImageComp from './pages/imageboard/ImageComp';
 import { ToastContainer } from 'react-toastify';
 import { useUser } from './context/UserContext';
 import MenuComp from './components/MenuComp';
@@ -20,6 +21,7 @@ function App() {
         <Route path="/about/*" element={<AboutComp />}></Route>
         <Route path="/board/*" element={<BoardComp />}></Route>
         <Route path="/member/*" element={<MemberComp />}></Route>
+        <Route path="/imageboard/*" element={<ImageComp />}></Route>
       </Routes>
       <div className="container-fluid py-5 mt-5" style={{ background: '#ddd' }}>
         <div className="container">
