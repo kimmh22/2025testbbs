@@ -12,7 +12,7 @@ function ViewComp() {
   useEffect(() => {
     const viewData = async () => {
       const { data, error } = await supabase
-        .from('posts')
+        .from('image_bbs')
         .select('*')
         .eq('id', Number(id))
         .single();

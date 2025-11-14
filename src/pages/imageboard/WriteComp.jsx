@@ -75,7 +75,7 @@ function WriteComp() {
 
       // ⭐ DB에 글 + 파일명 + 파일 URL 저장
       const { data, error } = await supabase
-        .from('image_upload')
+        .from('image_bbs')
         .insert([
           {
             title: formData.title,

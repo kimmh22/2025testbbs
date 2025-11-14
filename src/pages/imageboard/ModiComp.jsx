@@ -16,7 +16,7 @@ function ModiComp() {
   useEffect(() => {
     const viewData = async () => {
       const { data, error } = await supabase
-        .from('posts')
+        .from('image_bbs')
         .select('*')
         .eq('id', Number(id))
         .single();
@@ -51,7 +51,7 @@ function ModiComp() {
 
     const createWrite = async () => {
       const { data, error } = await supabase
-        .from('posts')
+        .from('')
         .update({
           title: formData.title,
           name: formData.name,
