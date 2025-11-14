@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import supabase from '../../utils/supabase';
 import { Link, useNavigate } from 'react-router-dom';
-import { useBoard } from '../../context/BoardContext';
+import { useImgBoard } from '../../context/ImgBoardContext';
 import { useUser } from '../../context/UserContext';
 
 function WriteComp() {
-  // 🔥 Hook은 무조건 맨 위에서 먼저 선언!
   const { user } = useUser();
-  const { getPosts } = useBoard();
+  if (!user) {
+    return <p>로그인후 이용가능합니다</p>;
+  }
+  const { getPosts } = useImgBoard();
   const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     title: '',
     name: '',

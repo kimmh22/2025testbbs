@@ -4,10 +4,11 @@ import WriteComp from './WriteComp';
 import ViewComp from './ViewComp';
 import ModifyComp from './ModiComp';
 import { Link, Route, Routes } from 'react-router-dom';
-import { BoardProvider } from '../../context/BoardContext';
+import { ImgBoardProvider } from '../../context/ImgBoardContext';
+
 function ImageComp() {
   return (
-    <BoardProvider>
+    <ImgBoardProvider>
       <div className="container">
         <div
           style={{ width: '100%', height: '200px' }}
@@ -33,7 +34,7 @@ function ImageComp() {
           <Route path="modify/:id" element={<ModifyComp />}></Route>
         </Routes>
       </div>
-    </BoardProvider>
+    </ImgBoardProvider>
   );
 }
 

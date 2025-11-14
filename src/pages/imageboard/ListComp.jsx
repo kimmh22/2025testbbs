@@ -1,67 +1,72 @@
-import { useState, useEffect } from 'react';
-import supabase from '../../utils/supabase';
-
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
-import { useBoard } from '../../context/BoardContext';
+import { useImgBoard } from '../../context/ImgBoardContext';
 
 function ListComp() {
-  const { posts } = useBoard();
+  const { posts } = useImgBoard();
+
   if (!posts.length) {
     return <p>게시물이 없습니다.</p>;
   }
+
   return (
     <div>
-      <h3>리스트</h3>
+      <h3>이미지 게시판</h3>
 
-      <table className="table">
-        <thead>
-          <tr>
-            <th scope="col" style={{ width: '30px' }}>
-              no
-            </th>
-            <th scope="col" style={{ width: '60%' }}>
-              subject
-            </th>
-            <th scope="col">name</th>
-            <th scope="col">date</th>
-            <th scope="col">img</th>
-          </tr>
-        </thead>
-        <tbody>
-          {posts?.map((item, i) => {
-            return (
-              <tr key={i}>
-                <th scope="row">{posts.length - i}</th>
-                <td>
-                  <Link to={`/imageboard/view/${item.id}`} className="nav-link">
-                    {item.title}
-                  </Link>
-                </td>
-                <td>{item.name}</td>
-                <td>{dayjs(item.created_at).format('YY.MM.DD')}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      {/* <ul>
+      {/* 카드 전체를 감싸는 그리드 */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+          gap: '20px',
+          marginTop: '20px',
+        }}
+      >
         {posts.map((item, i) => (
-          <li key={i}>
-            {post.title} / {post.name} / {post.content} /
-            {dayjs(post.created_at).format('YYYY-MM-DD')}
-          </li>
-        ))}
-      </ul> */}
+          <div
+            key={i}
+            className="card shadow-sm"
+            style={{
+              borderRadius: '10px',
+              overflow: 'hidden',
+            }}
+          >
+            {/* 이미지 */}
+            <Link to={`/imageboard/view/${item.id}`}>
+              <img
+                src={item.fileurl}
+                alt={item.title}
+                style={{
+                  width: '100%',
+                  height: '180px',
+                  objectFit: 'cover',
+                  objectPosition: 'center center',
+                }}
+              />
+            </Link>
 
-      <div className="d-flex justify-content-end">
-        <div className="d-flex gap-2">
-          <Link to="/board/write" className="btn btn-primary">
-            글작성
-          </Link>
-        </div>
+            {/* 카드 내용 */}
+            <div style={{ padding: '15px' }}>
+              <h5 style={{ marginBottom: '8px' }}>{item.title}</h5>
+              <div style={{ fontSize: '13px', color: '#555' }}>
+                {dayjs(item.created_at).format('YY.MM.DD')}
+              </div>
+              <div style={{ fontSize: '14px', marginTop: '5px' }}>
+                작성자: {item.name}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* 글작성 버튼 */}
+      <div className="d-flex justify-content-end mt-4">
+        <Link to="/imageboard/write" className="btn btn-primary">
+          글작성
+        </Link>
       </div>
     </div>
   );
 }
+
 export default ListComp;
